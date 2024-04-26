@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <artifactId>kumuluscad</artifactId>
+      <groupId>br.com.marcelbritto.kumulus</groupId>
+      <version>1.0.0</version>
+   </parent>
+
+   <artifactId>kumuluscad-web</artifactId>
+   <packaging>war</packaging>
+
+   <name>kumuluscad - web</name>
+
+   <url>http://jboss.org/jbossas</url>
+   <licenses>
+      <license>
+         <name>Apache License, Version 2.0</name>
+         <distribution>repo</distribution>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      </license>
+   </licenses>
+
+   <properties>
+   		<java.version>11</java.version>
+   		<kumuluscad-client.version>1.0.0</kumuluscad-client.version>
+   		<version.war.plugin>3.3.1</version.war.plugin>
+   		<jsf-api.version>2.2.13</jsf-api.version>
+        <primefaces.version>5.3</primefaces.version>
+        <primefaces-extension.version>4.0.0</primefaces-extension.version>
+        <primefaces-all-themes.version>1.0.10</primefaces-all-themes.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <el-api.version>2.2</el-api.version>
+   </properties>
+   
+   <dependencies>
+
+      <!-- Dependency on the EJB module so we can use it's services if needed -->
+      <dependency>
+         <groupId>br.com.marcelbritto.kumulus</groupId>
+         <artifactId>kumuluscad-ejb</artifactId>
+         <type>ejb</type>
+         <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+		    <groupId>br.com.marcelbritto.kumulus</groupId>
+         	<artifactId>kumuluscad-client</artifactId>
+         	<version>${kumuluscad-client.version}</version>
+		    <scope>provided</scope>
+	  </dependency>
+
+      <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.ws.rs</groupId>
+         <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Import the CDI API, we use provided scope as the API is included in JBoss AS 7 -->
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- Import the JSF API, we use provided scope as the API is included in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.faces</groupId>
+         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Import the JPA API, we use provided scope as the API is included in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.hibernate.javax.persistence</groupId>
+         <artifactId>hibernate-jpa-2.0-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+       <!-- JSR-303 (Bean Validation) Implementation -->
+       <!-- Provides portable constraints such as @Email -->
+       <!-- Hibernate Validator is shipped in JBoss AS 7 -->
+       <dependency>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-validator</artifactId>
+           <scope>provided</scope>
+           <exclusions>
+               <exclusion>
+                   <groupId>org.slf4j</groupId>
+                   <artifactId>slf4j-api</artifactId>
+               </exclusion>
+           </exclusions>
+       </dependency>
+
+   </dependencies>
+
+   <build>
+  	<finalName>${project.artifactId}</finalName>
+    <pluginManagement>
+      <plugins>
+      	<plugin>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>${version.war.plugin}</version>
+			<configuration>
+				<failOnMissingWebXml>false</failOnMissingWebXml>
+				<filename>${project.artifactId}.war</filename>
+				<skip>false</skip>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>${java.version}</source>
+				<target>${java.version}</target>
+			</configuration>
+		</plugin>
+        
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>

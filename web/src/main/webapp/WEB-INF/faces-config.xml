@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+ 		<resource-bundle>
+			<base-name>br.com.marcelbritto.kumuluscad.util.Text</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+
+<!-- 	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>login-candidate</from-outcome>
+			<to-view-id>/pages/login-candidate.xhtml</to-view-id>
+		</navigation-case>
+							
+	</navigation-rule>
+-->
+
+</faces-config>
