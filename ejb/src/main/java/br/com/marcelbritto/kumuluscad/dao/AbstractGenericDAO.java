@@ -53,16 +53,17 @@ public abstract class AbstractGenericDAO<T, I extends Serializable> {
 		this.persistedClass = persistedClass;
 	}
 
-	public void save(@Valid T entity) throws BusinessException {
+	public <S extends T> S save(@Valid S entity)  {
 		em.persist(entity);
+		return entity;
 	}
 
-	public void update(@Valid T entity) throws BusinessException {
-		em.merge(entity);
+	public <S extends T> S update(@Valid S entity) {
+		return em.merge(entity);
 	}
 
 
-	public void delete(@Valid T entity) throws Exception {
+	public void delete(@Valid T entity)  {
 		
 		/*
 		 * Para evitar o erro: Entity must be managed to call remove
@@ -75,7 +76,7 @@ public abstract class AbstractGenericDAO<T, I extends Serializable> {
 		em.flush();
 	}
 	
-	public void deleteById(final I entityId) throws Exception {
+	public void deleteById(final I entityId) {
         final T entity = find(entityId);
         delete(entity);
     }

@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  wildfly:
+    image: jboss/wildfly:23.0.2.Final
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    environment:
+      - WILDFLY_MANAGEMENT_USER=${WILDFLY_MANAGEMENT_USER}
+      - WILDFLY_MANAGEMENT_PASSWORD=${WILDFLY_MANAGEMENT_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres-driver:/opt/jboss/wildfly/modules/system/layers/base/org/postgresql
+      - ./kumuluscad-ear/target:/opt/jboss/wildfly/standalone/deployments/kumuluscad-ear.ear
+      - ./wildfly-scripts:/opt/jboss/wildfly/custom-scripts
+    networks:
+      - app-network
+    command: >
+      bash -c "mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/jdbc/main &&
+      cp /opt/jboss/wildfly/standalone/deployments/kumuluscad-ear.ear /opt/jboss/wildfly/standalone/deployments/ &&
+      cp postgresql-*.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/jdbc/main/ &&
+      /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0 -Djboss.cli.config=/opt/jboss/wildfly/custom-scripts/config.cli"
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,7 @@
+batch
+# Adicionar o módulo do driver JDBC do PostgreSQL
+module add --name=org.postgresql --resources=/opt/jboss/wildfly/modules/system/layers/base/org/postgresql/jdbc/main/postgresql-*.jar --dependencies=javax.api,javax.transaction.api
+
+# Criar o datasource
+data-source add --name=MyPostgresDS --jndi-name=java:jboss/datasources/MyPostgresDS --driver-name=org.postgresql --connection-url=jdbc:postgresql://postgres:5432/mydatabase --user-name=${env.POSTGRES_USER} --password=${env.POSTGRES_PASSWORD} --use-ccm=true --max-pool-size=20 --blocking-timeout-wait-millis=5000 --enabled=true
+run-batch
