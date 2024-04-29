@@ -21,6 +21,7 @@ import br.com.marcelbritto.kumuluscad.model.Estado;
 import br.com.marcelbritto.kumuluscad.model.Sexo;
 import br.com.marcelbritto.kumuluscad.service.CidadeFacade;
 import br.com.marcelbritto.kumuluscad.service.EstadoFacade;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * Classe produtora de domínios para a camada de apresentação.
@@ -29,14 +30,11 @@ import br.com.marcelbritto.kumuluscad.service.EstadoFacade;
  */
 @ManagedBean(name = "domainProducer")
 @SessionScoped
+@Log4j2
 public class DomainProducers implements Serializable {
 
 	/** Constante de Serialização. */
 	private static final long serialVersionUID = 3195518563196542411L;
-
-	/** Instância do Logger utilizado para gravar registros de log da aplicação. */
-	@Inject
-	private transient Logger logger;
 
 	@Inject
 	private EstadoFacade estadoFacade;
@@ -58,7 +56,7 @@ public class DomainProducers implements Serializable {
 		try {
 			list = estadoFacade.listStates();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 		} finally {
 			return list;
 		}
@@ -75,7 +73,7 @@ public class DomainProducers implements Serializable {
 		try {
 			list = cidadeFacade.listCities();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 		} finally {
 			return list;
 		}
@@ -92,7 +90,7 @@ public class DomainProducers implements Serializable {
 		try {
 			list = Sexo.values();
 		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 		} finally {
 			return list;
 		}

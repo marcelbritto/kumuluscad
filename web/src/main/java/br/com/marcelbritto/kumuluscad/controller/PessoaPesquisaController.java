@@ -88,12 +88,7 @@ public class PessoaPesquisaController extends BaseController {
 		return "pessoa-edit"; 
 	} 
 	
-	public String view() { 
-		facesContext.getExternalContext().getFlash().put("pessoa", pessoaSelecionada); 
-		facesContext.getExternalContext().getFlash().put("readOnlyScreen", true);
-		return "aso-edit"; 
-	} 
-	
+		
 	@Override
 	public void handleException (Exception e, String titleMessage, Logger logger) {
 		super.handleException(e, titleMessage, logger);

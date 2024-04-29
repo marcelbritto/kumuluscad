@@ -15,11 +15,9 @@ import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import jakarta.validation.Valid;
-
-import org.apache.logging.log4j.core.Logger;
 
 import br.com.marcelbritto.kumuluscad.exception.BusinessException;
+import jakarta.validation.Valid;
 
 /**
  * Classe abstrata para os DAOs da aplicação.

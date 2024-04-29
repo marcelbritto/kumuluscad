@@ -29,7 +29,7 @@
         <hibernate.version>5.3.20.Final</hibernate.version>
         <cdi.version>1.1</cdi.version>
         <servlet-api.version>3.1.0</servlet-api.version>
-        <log4j2.version>2.17.2</log4j2.version>
+        <log4j2.version>2.18.0</log4j2.version>
         <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
         <hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
         <lombok.version>1.18.2</lombok.version>
@@ -90,11 +90,7 @@
 		    <artifactId>log4j-api</artifactId>
 		    <version>${log4j2.version}</version>
 		</dependency>
-		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-core</artifactId>
-		    <version>${log4j2.version}</version>
-		</dependency>
+		
 		
 
 

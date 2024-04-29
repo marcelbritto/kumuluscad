@@ -32,8 +32,8 @@ public abstract class BaseController {
 	protected transient Logger logger;
 	
 	
-	@ManagedProperty(value = "#{domainProducer}")
-	private DomainProducers domainProducer;
+//	@ManagedProperty(value = "#{domainProducer}")
+//	private DomainProducers domainProducer;
 	
 	
 	public BaseController() {
@@ -43,13 +43,13 @@ public abstract class BaseController {
 	}
 	
 	
-	public DomainProducers getDomainProducer() {
-		return domainProducer;
-	}
-
-	public void setDomainProducer(DomainProducers domainProducer) {
-		this.domainProducer = domainProducer;
-	}
+//	public DomainProducers getDomainProducer() {
+//		return domainProducer;
+//	}
+//
+//	public void setDomainProducer(DomainProducers domainProducer) {
+//		this.domainProducer = domainProducer;
+//	}
 
 	public void addMessage(String summary) {
 		addMessage(summary, FacesMessage.SEVERITY_INFO);
