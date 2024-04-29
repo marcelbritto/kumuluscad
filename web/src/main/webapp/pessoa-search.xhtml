@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="body">
+
+		<main> <h:form styleClass="container-fluid divMain"	id="frmSearchPessoa">
+			<div id="topDiv" />
+			<p:blockUI widgetVar="buiPessoaSearchMenu" block="frmSearchPessoa"
+				trigger="btnSearch tblPessoa @(.btnPessoaViewClass)">
+				<p:graphicImage library="imagens" name="ajax-loader.gif" />
+				<p:outputLabel value="Aguarde..." style="white-space: nowrap;" />
+
+			</p:blockUI>
+
+			<p:blockUI styleClass="buiPessoaEdit" block="frmSearchPessoa"
+				trigger="@(.btnPessoaEditClass)">
+				<p:graphicImage id="imgBuiPessoa" library="imagens"
+					name="ajax-loader.gif" />
+			</p:blockUI>
+
+			<div id="main" class="container">
+				<h3 class="page-header"
+					style="margin: 100px 0 20px; border-bottom: 1px solid #cbcaca;">
+					<h:outputText styleClass="titulo"
+						style="font-weight: bold;margin-left:10px" value="#{msgs.lbl_pessoa}" />
+				</h3>
+
+				<p:messages id="msgsGlobal" closable="true" />
+
+				<!-- Filtro de Consulta -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-8">
+							<h:outputLabel value="#{msgs.lbl_pessoa}" />
+							<p:inputText id="txtPessoa"
+								value="#{pessoaPesquisaController.nomePessoa}"
+								styleClass="form-control" />
+
+						</div>
+					</div>
+				</div>
+
+				<!-- BOTÃO PESQUISAR -->
+				<div class="row" style="vertical-align: middle;">
+					<div class="col-md-12">
+						<div class="pull-right">
+							<p:commandLink id="btnSearch" look="primary"
+								action="#{pessoaPesquisaController.find}" icon="ui-icon-search"
+								value="#{msgs.lbl_research}"
+								oncomplete="document.getElementById('topDiv').scrollIntoView()"
+								styleClass="btnSearch btn btn-info btn-rounded"
+								update="frmSearchPessoa:tblPessoa" />
+							<p:defaultCommand target="btnSearch" />
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<p:separator />
+
+			<div class="row" style="vertical-align: middle;">
+
+				<div class="col-md-12 text-center">
+					<p:dataTable id="tblPessoa" emptyMessage="#{msgs.msg_noItemRegistred}"
+						var="row" value="#{pessoaPesquisaController.pessoas}" rows="10"
+						paginator="true" styleClass="tabela tabelaHover"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="10,20,30">
+
+						<p:column headerText="#{msgs.lbl_name}"
+							sortBy="#{row.nome}" style="width:10%">
+							<h:outputText value="#{row.nome}" />
+						</p:column>
+
+						<p:column headerText="#{msgs.lbl_cpf}"
+							sortBy="#{row.cpf}" style="width:10%">
+							<h:outputText value="#{row.cpf}" />
+						</p:column>
+
+						<p:column headerText="#{msgs.lbl_age}"
+							sortBy="#{row.idade}" style="width:15%">
+							<h:outputText value="#{row.idade}" />
+						</p:column>
+
+						<p:column headerText="#{msgs.lbl_sex}"
+							sortBy="#{row.sexo}" style="width:10%">
+							<h:outputText value="#{row.sexo}" />
+						</p:column>
+
+						<p:column headerText="#{msgs.lbl_actions}" style="width:15%">
+							<div class="row no-gutters">
+								<div class="col-md-4">
+									<!-- Alterar -->
+									<p:commandLink id="btnEdit" title="#{msgs.tooltip_alter}"
+										styleClass="btn blue-gradient btn-rounded btnPessoaEditClass btn-sm"
+										style="padding: .rem 1rem; margin-left: .700rem"
+										action="#{pessoaPesquisaController.edit}">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										<f:setPropertyActionListener
+											target="#{pessoaPesquisaController.pessoaSelecionada}" value="#{row}" />
+									</p:commandLink>
+								</div>
+
+								<div class="col-md-4">
+									<!-- Excluir -->
+									<p:commandLink id="btnDelete" title="#{msgs.tooltip_delete}"
+										styleClass="btn blue-gradient btn-rounded btnDeletePessoaClass btn-sm"
+										style="padding: .rem 1rem; margin-left: .700rem"
+										onclick="$('.modalPseudoClassDelete').modal(); ">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										<f:setPropertyActionListener
+											target="#{pessoaPesquisaController.pessoaSelecionada}" value="#{row}" />
+									</p:commandLink>
+								</div>
+							</div>
+						</p:column>
+
+					</p:dataTable>
+
+				</div>
+			</div>
+			
+		</h:form> </main>
+
+		<!-- ########## DIALOG EXCLUSÃO ############# -->
+		<h:form id="frmDelete">
+			<b:modal id="dlgDelete" title="#{msgs.msg_confirmationoperation}"
+				styleClass="modalPseudoClassDelete">
+				<!--Body-->
+				<div class="modal-body mb-0">
+					#{msgs.msg_delete_pessoa}
+					<div class="text-center mt-1-half">
+						<b:commandButton value="#{msgs.bt_cancel}" dismiss="modal"
+							icon-awesome="rotate-left" />
+						<b:commandButton look="success" icon-awesome="check"
+							immediate="true" action="#{pessoaPesquisaController.delete}"
+							update="frmSearchPessoa:tblPessoa"
+							ajax="false" value="#{msgs.bt_confirm}"
+							oncomplete="$('.modalPseudoClassDelete').modal('hide');">
+						</b:commandButton>
+					</div>
+				</div>
+			</b:modal>
+		</h:form>
+
+		
+		<style>
+
+
+			.fixed-sn main, .hidden-sn main {
+				padding-top: 0rem;
+			}
+			
+			.ui-button-text-only .ui-button-text {
+				padding: 0rem 0rem;
+			}
+	</style>
+	</ui:define>
+
+</ui:composition>
+</html>

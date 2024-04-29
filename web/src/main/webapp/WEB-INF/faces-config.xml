@@ -19,14 +19,14 @@
 		</resource-bundle>
 	</application>
 
-<!-- 	<navigation-rule>
+	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
-			<from-outcome>login-candidate</from-outcome>
-			<to-view-id>/pages/login-candidate.xhtml</to-view-id>
+			<from-outcome>pessoa-search</from-outcome>
+			<to-view-id>/pessoa-search.xhtml</to-view-id>
 		</navigation-case>
 							
 	</navigation-rule>
--->
+
 
 </faces-config>

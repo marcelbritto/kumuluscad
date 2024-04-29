@@ -15,7 +15,7 @@ import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.core.Logger;
 
@@ -41,8 +41,8 @@ public abstract class AbstractGenericDAO<T, I extends Serializable> {
 	@Inject
 	protected EntityManager em;
 	
-	@Inject
-	protected transient Logger logger;
+//	@Inject
+//	protected transient Logger logger;
 	
 	
 	protected AbstractGenericDAO() {

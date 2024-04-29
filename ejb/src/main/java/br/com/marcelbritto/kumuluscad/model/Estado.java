@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -20,7 +19,7 @@ import lombok.Data;
 
 /**
  *
- * @author sergiorobertojunior
+ * @author marcelbritto
  */
 @Entity
 @Table(name = "estado")
@@ -31,14 +30,10 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class Estado implements Serializable, Comparable<Estado> {
+public class Estado extends BaseEntity implements Serializable{
 	
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    
+        
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
@@ -65,13 +60,5 @@ public class Estado implements Serializable, Comparable<Estado> {
 
     
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(Estado state) {
-		
-    	return (this.id == state.id) ? 1 : 0; 
-		
-	}
+	
 }

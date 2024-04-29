@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:form>
+    <!-- MODAL DE CONFIRMAÇÃO -->
+   		  <b:modal id="amodalConfirmation" title="#{msgs.msg_confirmationoperation}"
+			styleClass="modalPseudoClassLogout">
+            <!--Body-->
+			<div class="modal-body mb-0">
+				#{msgs.msg_logout}
+				<div class="text-center mt-1-half">
+					<b:commandButton value="#{msgs.bt_cancel}" dismiss="modal"
+						icon-awesome="rotate-left" />
+					<b:commandButton look="success" icon-awesome="check"
+					    immediate="true"
+						ajax="false" value="#{msgs.bt_confirm}">
+						
+					</b:commandButton>
+				</div>
+			 </div>
+																		
+		</b:modal>
+    
+    <!--Navbar-->
+    <p:menubar styleClass=" navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar blue-gradient" id="dropMenu" >
+    	<f:facet name="options" style="padding-top: 0px;">
+        	 <a class="navbar-brand" href="http://www.google.com.br/" target="_blank">
+	              <p:graphicImage value="../../resources/imagens/logoBrancoZarpa.png"/>
+	         </a>
+	         <p:outputLabel style="color:#fff; font-family: Roboto,sans-serif; font-size: 0.8rem;" 
+	         	value="#{msgs.lbl_version}#{msgs.project_version}"/>
+	    </f:facet>
+    
+        <!-- Como coloquei alinhamento à direita, é necessário cadastrar o menu de forma invertida -->
+        <p:menuitem value="#{msgs.bt_exit}" onclick="$('.modalPseudoClassLogout').modal(); "  
+	  	 		styleClass="nav-item" 
+	  	 		style="padding-top: 5px; padding-right: 15px; color:#fff; font-family: Roboto,sans-serif; font-size: 1rem;"
+				immediate="true"/> 
+		
+		 <p:menuitem value="#{msgs.lbl_home}" outcome="pessoa-search" styleClass="nav-item"
+          	style="padding-top: 5px;padding-right: 15px; color:#fff; font-family: Roboto,sans-serif; font-size: 1rem;"/> 
+    	        	 
+	</p:menubar>
+			    
+	
+     		  
+              
+
+            
+      </h:form>
+  <!-- Ajustes para compatibilização entre PrimeFaces e Bootstrap -->
+  <style>
+  	/**.ui-menu .ui-menuitem-text {
+	    float: left;
+	    color: #fff;
+	}*/
+	.submenu-with-itens .ui-menuitem-text{color:black;}
+	
+  </style>
+</ui:composition>

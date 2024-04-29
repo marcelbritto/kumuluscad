@@ -3,9 +3,10 @@ package br.com.marcelbritto.kumuluscad.service;
 import java.util.List;
 
 import br.com.marcelbritto.kumuluscad.dao.AbstractGenericDAO;
+import br.com.marcelbritto.kumuluscad.model.BaseEntity;
 import br.com.marcelbritto.kumuluscad.model.Pessoa;
 
-public interface IBaseCrudFacade<E extends Pessoa, R extends AbstractGenericDAO<E, Integer>> {
+public interface IBaseCrudFacade<E extends BaseEntity> {
 
 	E create(E entity);
 

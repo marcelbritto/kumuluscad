@@ -46,6 +46,12 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -54,10 +60,12 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+		    <groupId>javax.enterprise</groupId>
+		    <artifactId>cdi-api</artifactId>
+		    <version>2.0</version>
+		    <scope>provided</scope>
+		</dependency>
+
 
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -68,7 +76,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
+            <version>7.0.5.Final</version>
         </dependency>
         
         <dependency>
@@ -91,7 +99,7 @@
 
 
         <!-- Test scope dependencies -->
-        <dependency>
+       <!-- <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -108,7 +116,7 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>               
         </dependency>
-
+-->
     </dependencies>
 
     <build>
@@ -144,6 +152,35 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
+                    <plugin>
+						<artifactId>maven-ejb-plugin</artifactId>
+						<version>${version.ejb.plugin}</version>
+						<configuration>
+							<!-- Tell Maven we are using EJB 3.1 -->
+							<ejbVersion>3.1</ejbVersion>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>run</phase>
+								<configuration>
+									<failOnError>false</failOnError>
+									<skip>true</skip>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<filename>${project.artifactId}.jar</filename>
+							<skip>false</skip>
+						</configuration>
+					</plugin>
                 </plugins>
             </build>
         </profile>

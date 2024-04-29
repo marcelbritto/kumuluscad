@@ -1,0 +1,23 @@
+<jboss-deployment-structure>
+  <deployment>
+    <dependencies>
+    	<module name="org.apache.log4j" />
+        <module name="org.apache.commons.logging"/>
+      	<module name="org.eclipse.persistence" />
+    </dependencies>
+    
+	<!-- <exclude-subsystems>
+		<subsystem name="resteasy" />
+	</exclude-subsystems>
+	
+	<exclusions>
+   		<module name="org.apache.ant"/>
+   		<module name="javaee.api" />
+		<module name="jakarta.ws.rs.api" />
+		<module name="org.jboss.resteasy.resteasy-jaxrs" />
+	</exclusions>
+	-->
+	<local-last value="true" />
+   	
+  </deployment>
+</jboss-deployment-structure>

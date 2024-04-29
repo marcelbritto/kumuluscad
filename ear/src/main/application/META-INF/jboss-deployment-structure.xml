@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+  <deployment>
+    	
+        <exclusions>
+        	<module name="org.apache.log4j" />
+        	<module name="org.apache.commons.logging"/>
+        	<module name="javax.ws.rs.api" />
+			<module name="org.jboss.resteasy.resteasy-jaxrs" />
+        </exclusions>
+	
+		<local-last value="true" />
+	</deployment>
+
+	<sub-deployment name="kumuluscad-web.war">
+		<exclusions>
+			<module name="org.apache.log4j" />
+			<module name="org.apache.commons.logging"/>
+		</exclusions>
+	</sub-deployment>
+
+	<sub-deployment name="kumuluscad-ejb.jar">
+		<exclusions>
+			<module name="org.apache.log4j" />
+			<module name="org.apache.commons.logging"/>
+		</exclusions>
+	</sub-deployment>
+</jboss-deployment-structure>
