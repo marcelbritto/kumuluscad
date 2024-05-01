@@ -18,11 +18,15 @@ import javax.persistence.Transient;
 import br.com.marcelbritto.kumuluscad.util.Utils;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "pessoa")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @NamedQueries({ 
 	@NamedQuery(name = "Pessoa.findAll", query = "SELECT p FROM Pessoa p"),
 	@NamedQuery(name = "Pessoa.findById", query = "SELECT p FROM Pessoa p WHERE p.id = :id"),
@@ -56,5 +60,27 @@ public class Pessoa extends BaseEntity implements Serializable{
 		return Utils.getAge(nascimento);
 	}
 	
-		
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Pessoa)) {
+			return false;
+		}
+		Pessoa other = (Pessoa) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa[ id=" + id + " ]";
+	}	
 }

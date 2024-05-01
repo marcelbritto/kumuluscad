@@ -4,14 +4,16 @@ services:
   
   postgres:
     image: postgres
+    volumes:
+      - ./sql-scripts:/docker-entrypoint-initdb.d  # Monta o diretório com os scripts SQL
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     networks:
       - app-network
-    
-    
+#    volumes:
+#      - ./sql-scripts:/sql-scripts  # Monta o diretório com os scripts SQL
 
 networks:
   app-network:

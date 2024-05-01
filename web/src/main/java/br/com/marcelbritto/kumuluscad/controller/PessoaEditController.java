@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 
@@ -46,6 +47,7 @@ public class PessoaEditController extends BaseController {
 	private List<Cidade> cidadeList;
 	private Estado selectedEstado;
 	private Cidade selectedCidade;
+	private boolean insertMode = false;
 	
 	@PostConstruct
 	public void init() {
@@ -53,12 +55,10 @@ public class PessoaEditController extends BaseController {
 		
 		// Carregar em caso de alteração
 		pessoa = (Pessoa) context.getExternalContext().getFlash().get("pessoa");
-//		estadoList = domainP estadoFacade.listStates();
-//		cidadeList =
 		
 		if (pessoa != null) {
 			Hibernate.initialize(pessoa.getEnderecos());
-							
+			insertMode = true;				
 		} else {
 			resetPessoa();
 		}
@@ -71,12 +71,11 @@ public class PessoaEditController extends BaseController {
 		selectedEnderecoList = new ArrayList<>();
 		enderecoEdit = new Endereco();
 		selectedEndereco = new Endereco();
+		selectedCidade = new Cidade();
+		selectedEstado = new Estado();
+		selectedEstado.setCidades(new ArrayList<>());
+		System.out.println("##################### RESET PESSOA");
 	}
-
-	
-
-
-	
 
 	// Realiza a consulta tanto pelo nome do profissional, quanto pelo o seu CPF caso esteja presente na string.
 //	int pos = person.getName().indexOf("-");
@@ -129,12 +128,6 @@ public class PessoaEditController extends BaseController {
 	}
 
 
-
-	public void deleteCertified(Endereco endereco) {
-//		aso.getAsoCertifieds().remove(certified);
-
-	}
-
 	public void save() {
 		FacesMessage message = null;
 		List<String> errorList = new ArrayList<String>();
@@ -143,45 +136,20 @@ public class PessoaEditController extends BaseController {
 			validateRequiredFields(errorList);
 			
 			if (!errorList.isEmpty()) {
-				String errorTitle = bundle.getString("error_validateRequiredFields");
+				String errorTitle = bundle.getString("error_validate_required_fields");
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorTitle, "");
-				context.addMessage("messagesGlobal", message);
-				errorList.forEach(error -> context.addMessage("messagesGlobal",
+				context.addMessage("msgsGlobal", message);
+				errorList.forEach(error -> context.addMessage("msgsGlobal",
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, this.bundle.getString(error), null)));
 
 				return;
 			}
-		
-//			findPersonByName();
-//			aso.setEmployee(person);
-//			aso.setASOExamGHEs(new ArrayList<ASOExamGHE>());
-//			asoExamGHEList.forEach(n -> {
-//				n.setAso(aso);
-//			});
-//			aso.getASOExamGHEs().addAll(asoExamGHEList);
-//			
-//			aso.setAsoDocuments(new ArrayList<ASODocument>());
-//			if (asoCoverDocument != null) {
-//				asoDocumentList.add(asoCoverDocument);
-//			}
-//			asoDocumentList.forEach(ad -> {
-//				ad.setAso(aso);
-//			});
-//			aso.getAsoDocuments().addAll(asoDocumentList);
-//			
-//			insertCrmIntoAso();
-//			if (aso.getId() == null)  {
-//				asoFacade.insert(aso);
-//				message = new FacesMessage(FacesMessage.SEVERITY_INFO, Messages.MSG_INCLUSAO_REALIZADA, "");
-//				aso = new ASO();
-//				init();
-//			} else {
-//				asoFacade.update(aso, deletedDocumentList);
-//				if (asoCoverDocument != null) {
-//					asoDocumentList.remove(asoCoverDocument);
-//				}
-//				message = new FacesMessage(FacesMessage.SEVERITY_INFO, Messages.MSG_ALTERACAO_REALIZADA, "");
-//			}
+			if (insertMode) {
+				facade.create(pessoa);
+			} else {
+				facade.update(pessoa);
+			}
+
 			
 			context.addMessage("msgsGlobal", message);
 	
@@ -196,26 +164,14 @@ public class PessoaEditController extends BaseController {
 	}
 	
 	private void validateRequiredFields(List<String> errorList) {
-//		if (this.aso.getFunction() == null) {
-//			errorList.add("error_FillFunction");
-//		}
-//		
-//		if (this.aso.getClinic() == null) {
-//			errorList.add("error_FillClinic");
-//		}
-//		
-//		if (!Util.isCollectionNullOrEmpty(asoExamGHEList)){
-//			boolean examWithoutDate = asoExamGHEList.stream()
-//					.filter(asoExam -> asoExam.getDate() == null)
-//					.findAny().isPresent();
-//			if (examWithoutDate) {
-//				errorList.add("error_FillExamDate");
-//			}
-//		}
-//		
-//		if (this.aso.getDate() == null) {
-//			errorList.add("error_FillDate");
-//		}
+		if (StringUtils.isBlank(pessoa.getNome())) {
+			errorList.add("error_fill_name");
+		}
+		
+		if (StringUtils.isBlank(pessoa.getCpf())) {
+			errorList.add("error_fill_cpf");
+		}
+		
 	}
 	
 	public void checkName() {
@@ -276,22 +232,7 @@ public class PessoaEditController extends BaseController {
 	 * Usado para a seleção de Estado do endereço.
 	 */
 	public void selectedStateAddressListener() {
-
-//		if (helper.getPerson().getCountryAddress() != null) {
-//			for (State state : helper.getPerson().getCountryAddress().getStateList()) {
-//				if (state.getName().equalsIgnoreCase(helper.getSelectedStateAddress())) {
-//					helper.getPerson().setStateAddress(state);
-//					break;
-//				}
-//			}
-//			if (helper.getPerson().getStateAddress() == null) {
-//				State state = new State();
-//				state.setName(helper.getSelectedStateAddress());
-//				helper.getPerson().setStateAddress(state);
-//			}
-//		}
-
-
+		facade.listCidades(selectedEstado);
 	}
 
 	/**

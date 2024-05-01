@@ -19,7 +19,7 @@
 					maxlength="9" class="form-control" 
 					onblur="rcCep()" ajax="true">
 
-					<p:remoteCommand name="rcCep" update="txtCep txtLogradouro txtNumero cmbCidade cmbEstado"
+					<p:remoteCommand name="rcCep" update="txtCep txtLogradouro txtNumero "
 						actionListener="#{pessoaEditController.fillCep()}" /> 
 					<p:ajax event="blur" partialSubmit="true" />
 					
@@ -44,25 +44,26 @@
             </div>
             
         	<!-- Estado -->
-			<div class="form-group col-md-2">
+			<!-- <div class="form-group col-md-2">
 				<h:outputLabel value="#{msgs.lbl_state}" />
 
 				<p:selectOneMenu id="cmbEstado" maxlength="2"
-					value="#{pessoaEditController.selectedEstado}"
-					styleClass="browser-default form-control"  editable="true"
-					style="padding-right: 0px;">
+					value="#{pessoaEditController.selectedEstado}" editable="false">
 					
-					<f:selectItems value="#{pessoaEditController.estadoList}" 
-							var="estado" itemLabel="#{estado.nome}" itemValue="#{estado.nome}" />
+					<f:selectItem noSelectionOption="true"	itemLabel="#{msgs.msg_select}" itemValue="" />
+					<f:selectItems value="#{pessoaEditController.domainProducer.stateList()}" 
+							var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}" />
+					<f:converter converterId="genericConverter" />
 					
 					<p:ajax event="itemSelect"
 						listener="#{pessoaEditController.selectedStateAddressListener()}" update="cmbCidade"/>
 						
 					<p:ajax event="change" listener="#{pessoaEditController.selectedStateAddressListener}" update="cmbCidade"/>
+					<p:ajax update="cmbCidade" />
 				</p:selectOneMenu>
 			</div>
 
-			<!-- Cidade -->
+			Cidade
 			<div class="form-group col-md-8">
 				<h:outputLabel value="#{msgs.lbl_city}" />
 					
@@ -71,7 +72,8 @@
 					editable="false" styleClass="form-control">
 					
 					<f:selectItems value="#{pessoaEditController.selectedEstado.cidades}" 
-							var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade.nome}" />
+							var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					<f:converter converterId="genericConverter" />
 											
 					<p:ajax event="itemSelect"
 						listener="#{pessoaEditController.selectedCityAddressListener()}" />
@@ -80,7 +82,7 @@
 
 					
 				</p:selectOneMenu>
-			</div>
+			</div> -->
         </div>
 <!-- Fim Campos do Endereço -->					
 		<div class="row">

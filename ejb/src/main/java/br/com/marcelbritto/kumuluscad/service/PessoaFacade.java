@@ -2,13 +2,19 @@ package br.com.marcelbritto.kumuluscad.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
+
 import br.com.marcelbritto.kumuluscad.dao.PessoaDAO;
+import br.com.marcelbritto.kumuluscad.model.Cidade;
+import br.com.marcelbritto.kumuluscad.model.Estado;
 import br.com.marcelbritto.kumuluscad.model.Pessoa;
 
-public class PessoaFacade implements IBaseCrudFacade<Pessoa>{
+@Stateless
+public class PessoaFacade {
 
 	@Inject
 	private PessoaDAO dao;
@@ -19,7 +25,7 @@ public class PessoaFacade implements IBaseCrudFacade<Pessoa>{
     }
 
 	@Transactional
-    public Pessoa edit(Pessoa entity) {
+    public Pessoa update(Pessoa entity) {
     	return dao.update(entity);
     }
 
@@ -45,6 +51,11 @@ public class PessoaFacade implements IBaseCrudFacade<Pessoa>{
 		String[] parameters = { "nome" };
 		String[] values = { "%" + nome + "%" };
 		return dao.getObjects("Pessoa.findByNomeLike", parameters, values);
+	}
+	
+	public List<Cidade> listCidades(Estado estado) {
+		Hibernate.initialize(estado.getCidades());
+		return estado.getCidades();
 	}
 	
 	

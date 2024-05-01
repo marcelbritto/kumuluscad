@@ -36,12 +36,15 @@
 					            <div class="col-6">
 					              <div class="form-group">
 					                <h:outputLabel value="#{msgs.lbl_full_name}*" for="txtName"/>
-					                <p:inputText id="txtName" maxlength="150" size="150" 
+					                <!-- <p:inputText id="txtName" maxlength="150" size="150" 
 										value="#{pessoaEditController.pessoa.nome}"
 										onblur="rc()"	ajax="true" styleClass="form-control">
 										<p:remoteCommand name="rc" update="messageName" partialSubmit="true"
 											actionListener="#{pessoaEditController.checkName}" />
-									</p:inputText>
+									</p:inputText> -->
+									<p:inputText id="txtName" maxlength="150" size="150" 
+										value="#{pessoaEditController.pessoa.nome}" styleClass="form-control"/>
+										
 					                
 					              </div>
 					            </div>
@@ -51,24 +54,28 @@
 				</div>
 			    <div class="row mb-4">
 			    	<!-- CPF -->
-		              <div class="col-md-3">
+		              <div class="col-md-2">
 		              	<div class="form-group">	
 		              	  <b:messages id="messageCpf" for="txtCpf" autoUpdate="false" closable="true" />	
 			              <div class="form-group">
 			                <h:outputLabel value="#{msgs.lbl_cpf}*" for="txtCpf"/>
-			                <p:inputText id="txtCpf" maxlength="11" 
+			                <!-- <p:inputText id="txtCpf" maxlength="11" 
 								value="#{pessoaEditController.pessoa.cpf}"
 								onblur="rc2()"	ajax="true" styleClass="form-control">
 								<p:remoteCommand name="rc2" update="messageCpf" partialSubmit="true"
-									actionListener="#{pessoaEditController.checkName}" /><!-- TODO -->
-							</p:inputText>
+									actionListener="#{pessoaEditController.checkName}" />TODO
+							</p:inputText> -->
+							<p:inputText id="txtCpf" maxlength="11" 
+								value="#{pessoaEditController.pessoa.cpf}"
+								styleClass="form-control"/>
+								
 				
 			              </div>
 			              </div>
 			          </div>
 			          
 			          <!-- Nascimento -->
-		              <div class="col-md-4">	
+		              <div class="col-md-3">	
 			              <div class="form-group">
 			                <h:outputLabel value="#{msgs.lbl_birthday}" />
 			                <b:dateTimePicker id="cldBirthday" showButtonPanel="false"
@@ -118,19 +125,19 @@
 							<p:commandButton value="#{msgs.bt_save}" id="btnSavePessoa"
 								oncomplete="document.getElementById('messagesDiv').scrollIntoView()"
 								styleClass="btn btn-primary btn-rounded"
-								style="padding:.6rem 2rem" 
+								style="padding:.6rem .2rem" 
 								actionListener="#{pessoaEditController.save}" 
 								update="msgsGlobal frmEditPessoa"/>
 					
 							<h:link value="#{msgs.bt_clean}" class="btn btn-default"
 								styleClass="btn btn-primary btn-rounded"
-								style="padding:.7rem 2rem"
+								style="padding:.8rem .9rem"
 								actionListener="#{pessoaController.resetPessoa}"
 								update="frmEditPessoa" />
 
 							<h:link class="btn btn-default" value="#{msgs.bt_back}"
 								styleClass="btn btn-primary btn-rounded" 
-								style="padding:.7rem 2rem"
+								style="padding:.8rem .9rem"
 								outcome="pessoa-search" />
 						</div>
 					</div>
@@ -147,16 +154,9 @@
 		
 
 	<!-- Ajustes para compatibilização entre PrimeFaces e Bootstrap -->
-	  <style>
-.tab-content {
-	padding: 0rem 0rem 0rem;
-}
+<style>
 
-.ui-accordion {
-      overflow: visible
-}
-
-.ui-datepicker input {width:80px !important;}
+	.ui-datepicker input {width:80px !important;}
 
 </style>
 	</ui:define>

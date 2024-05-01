@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
@@ -44,6 +45,7 @@ public class Estado extends BaseEntity implements Serializable{
     
         
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy = "estado")
+    @ToString.Exclude
     private List<Cidade> cidades;
 
     public Estado() {
@@ -59,6 +61,28 @@ public class Estado extends BaseEntity implements Serializable{
     }
 
     
+    @Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Estado)) {
+			return false;
+		}
+		Estado other = (Estado) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Estado[ id=" + id + " - Initial=" + initial+ " ]";
+	}
 	
 }

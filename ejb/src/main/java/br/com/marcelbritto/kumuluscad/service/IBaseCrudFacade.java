@@ -4,11 +4,12 @@ import java.util.List;
 
 import br.com.marcelbritto.kumuluscad.model.BaseEntity;
 
+
 public interface IBaseCrudFacade<E extends BaseEntity> {
 
 	E create(E entity);
 
-	E edit(E entity);
+	E update(E entity);
 
 	void delete(E entity);
 

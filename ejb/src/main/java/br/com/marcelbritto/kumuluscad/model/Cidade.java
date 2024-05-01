@@ -56,5 +56,28 @@ public class Cidade extends BaseEntity implements Serializable {
         this.nome = nome;
     }
 
+    @Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Cidade)) {
+			return false;
+		}
+		Cidade other = (Cidade) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Cidade[ id=" + id + " ]";
+	}
    
 }

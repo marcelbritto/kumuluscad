@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.primefaces.PrimeFaces;
 
 import br.com.marcelbritto.kumuluscad.exception.BusinessException;
+import br.com.marcelbritto.kumuluscad.util.DomainProducers;
 
 
 /**
@@ -30,8 +32,8 @@ public abstract class BaseController {
 	protected transient Logger logger;
 	
 	
-//	@ManagedProperty(value = "#{domainProducer}")
-//	private DomainProducers domainProducer;
+	@ManagedProperty(value = "#{domainProducer}")
+	private DomainProducers domainProducer;
 	
 	
 	public BaseController() {
@@ -41,13 +43,13 @@ public abstract class BaseController {
 	}
 	
 	
-//	public DomainProducers getDomainProducer() {
-//		return domainProducer;
-//	}
-//
-//	public void setDomainProducer(DomainProducers domainProducer) {
-//		this.domainProducer = domainProducer;
-//	}
+	public DomainProducers getDomainProducer() {
+		return domainProducer;
+	}
+
+	public void setDomainProducer(DomainProducers domainProducer) {
+		this.domainProducer = domainProducer;
+	}
 
 	public void addMessage(String summary) {
 		addMessage(summary, FacesMessage.SEVERITY_INFO);
