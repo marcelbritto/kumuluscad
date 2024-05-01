@@ -7,7 +7,7 @@
 
 	<h:form>
     <!-- MODAL DE CONFIRMAÇÃO -->
-   		  <b:modal id="amodalConfirmation" title="#{msgs.msg_confirmationoperation}"
+   		  <b:modal id="amodalConfirmation" title="#{msgs.msg_confirmation_operation}"
 			styleClass="modalPseudoClassLogout">
             <!--Body-->
 			<div class="modal-body mb-0">
@@ -28,8 +28,8 @@
     <!--Navbar-->
     <p:menubar styleClass=" navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar blue-gradient" id="dropMenu" >
     	<f:facet name="options" style="padding-top: 0px;">
-        	 <a class="navbar-brand" href="http://www.google.com.br/" target="_blank">
-	              <p:graphicImage value="../../resources/imagens/logoBrancoZarpa.png"/>
+        	 <a class="navbar-brand" href="http://kumulus.com/" target="_blank">
+	              <p:graphicImage library="images" name="images/kumulus_logo_241x70px.png"/>
 	         </a>
 	         <p:outputLabel style="color:#fff; font-family: Roboto,sans-serif; font-size: 0.8rem;" 
 	         	value="#{msgs.lbl_version}#{msgs.project_version}"/>
@@ -52,13 +52,5 @@
 
             
       </h:form>
-  <!-- Ajustes para compatibilização entre PrimeFaces e Bootstrap -->
-  <style>
-  	/**.ui-menu .ui-menuitem-text {
-	    float: left;
-	    color: #fff;
-	}*/
-	.submenu-with-itens .ui-menuitem-text{color:black;}
-	
-  </style>
+  
 </ui:composition>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="body">
+
+	<main>
+		<h:form id="frmEditPessoa" styleClass="container-fluid divMain">
+			<h:inputHidden id="pessoa" value="#{pessoaEditController.pessoa}"/>
+			<div id="messagesDiv" />
+			
+			<p:blockUI widgetVar="buiPessoaEdit" block="frmEditPessoa" trigger="btnSavePessoa ">
+				<p:graphicImage library="imagens" name="ajax-loader.gif" />
+				<p:outputLabel value="Aguarde..." style="white-space: nowrap;" />
+			</p:blockUI>
+			
+			<div id="main" class="container-fluid">
+				<h3 class="page-header" style="margin: 20px 0 20px;border-bottom: 1px solid #cbcaca;">
+					<h:outputText styleClass="titulo" style="font-weight: bold;margin-left:10px"
+						value="#{msgs.lbl_pessoa}" />
+				</h3>
+				<div class="text-center">
+					<p:messages id="msgsGlobal" class="text-center" closable="true"/>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+	        	    	<div class="col-8">
+	        	    		<div class="form-group">
+							  	<b:messages id="messageName" for="txtName" autoUpdate="false" closable="true" />
+					            <div class="col-6">
+					              <div class="form-group">
+					                <h:outputLabel value="#{msgs.lbl_full_name}*" for="txtName"/>
+					                <p:inputText id="txtName" maxlength="150" size="150" 
+										value="#{pessoaEditController.pessoa.nome}"
+										onblur="rc()"	ajax="true" styleClass="form-control">
+										<p:remoteCommand name="rc" update="messageName" partialSubmit="true"
+											actionListener="#{pessoaEditController.checkName}" />
+									</p:inputText>
+					                
+					              </div>
+					            </div>
+					          </div>
+				        </div>
+				    </div>
+				</div>
+			    <div class="row mb-4">
+			    	<!-- CPF -->
+		              <div class="col-md-3">
+		              	<div class="form-group">	
+		              	  <b:messages id="messageCpf" for="txtCpf" autoUpdate="false" closable="true" />	
+			              <div class="form-group">
+			                <h:outputLabel value="#{msgs.lbl_cpf}*" for="txtCpf"/>
+			                <p:inputText id="txtCpf" maxlength="11" 
+								value="#{pessoaEditController.pessoa.cpf}"
+								onblur="rc2()"	ajax="true" styleClass="form-control">
+								<p:remoteCommand name="rc2" update="messageCpf" partialSubmit="true"
+									actionListener="#{pessoaEditController.checkName}" /><!-- TODO -->
+							</p:inputText>
+				
+			              </div>
+			              </div>
+			          </div>
+			          
+			          <!-- Nascimento -->
+		              <div class="col-md-4">	
+			              <div class="form-group">
+			                <h:outputLabel value="#{msgs.lbl_birthday}" />
+			                <b:dateTimePicker id="cldBirthday" showButtonPanel="false"
+			                		value="#{pessoaEditController.pessoa.nascimento}" 
+									format="DD/MM/YYYY"	locale="pt"
+									maxdate="today"/>
+				
+			              </div>
+			          </div>
+			          
+			          <!-- Sexo -->
+			          <div class="col-md-3">
+			              <div class="form-group">
+			                <h:outputLabel value="#{msgs.lbl_sex}" />
+			                <b:panelGrid size="xs" columns="2">
+			                  <b:radiobutton id="rdMale" 
+			                  	value="#{pessoaEditController.pessoa.sexo}" 
+			                  	itemLabel="#{msgs.lbl_male}" itemValue="M"/>  
+			                 <b:radiobutton value="#{pessoaEditController.pessoa.sexo}" 
+			                  	itemLabel="#{msgs.lbl_female}" itemValue="F"/>
+			                </b:panelGrid>
+			              </div>
+			          </div>
+			    </div>        
+			    <br/>
+			     <div class="row mb-2">
+		        	<div class="col-12 text-info"><h:outputLabel value="#{msgs.lbl_address}" /><hr/></div>
+		        </div>
+		        <div class="row mb-4">
+		        	<div class="col-12">
+						<ui:include src="pessoa-edit-endereco.xhtml" />
+					</div>
+				</div>       
+						            
+							          
+			</div>
+			
+
+<!-- Botões do rodapé -->
+			<br />
+			<p:separator />
+			<div class="container-fluid">
+				<div class="row" align="center">
+					<div class="col-sm-12">
+						<div>
+							<!-- Alinhando à direita -->
+							<p:commandButton value="#{msgs.bt_save}" id="btnSavePessoa"
+								oncomplete="document.getElementById('messagesDiv').scrollIntoView()"
+								styleClass="btn btn-primary btn-rounded"
+								style="padding:.6rem 2rem" 
+								actionListener="#{pessoaEditController.save}" 
+								update="msgsGlobal frmEditPessoa"/>
+					
+							<h:link value="#{msgs.bt_clean}" class="btn btn-default"
+								styleClass="btn btn-primary btn-rounded"
+								style="padding:.7rem 2rem"
+								actionListener="#{pessoaController.resetPessoa}"
+								update="frmEditPessoa" />
+
+							<h:link class="btn btn-default" value="#{msgs.bt_back}"
+								styleClass="btn btn-primary btn-rounded" 
+								style="padding:.7rem 2rem"
+								outcome="pessoa-search" />
+						</div>
+					</div>
+				</div>
+				<br/>
+			</div>
+
+		</h:form>
+		<br />
+	</main>
+		
+		
+		
+		
+
+	<!-- Ajustes para compatibilização entre PrimeFaces e Bootstrap -->
+	  <style>
+.tab-content {
+	padding: 0rem 0rem 0rem;
+}
+
+.ui-accordion {
+      overflow: visible
+}
+
+.ui-datepicker input {width:80px !important;}
+
+</style>
+	</ui:define>
+</ui:composition>
+</html>

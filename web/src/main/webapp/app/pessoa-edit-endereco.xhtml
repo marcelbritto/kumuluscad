@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+    <div class="container-fluid" jsf:id="divEndereco">
+    			
+		<div class="row mb-4">
+         	  <!--  CEP -->
+         	  <div class="form-group col-md-2">
+               	<h:outputLabel value="#{msgs.lbl_cep}" />
+				
+				<b:inputText id="txtCep"
+					value="#{pessoaEditController.enderecoEdit.cep}"
+					maxlength="9" class="form-control" 
+					onblur="rcCep()" ajax="true">
+
+					<p:remoteCommand name="rcCep" update="txtCep txtLogradouro txtNumero cmbCidade cmbEstado"
+						actionListener="#{pessoaEditController.fillCep()}" /> 
+					<p:ajax event="blur" partialSubmit="true" />
+					
+				</b:inputText>
+             </div>
+             
+             <!-- Logradouro -->	
+             <div class="col-md-10">
+             		<h:outputLabel value="#{msgs.lbl_location}" />
+                 	<b:inputText id="txtLogradouro" maxlength="100" 
+                 		styleClass="form-control"
+                 		value="#{pessoaEditController.enderecoEdit.logradouro}"/>
+             </div>
+        </div>
+        <div class="row mb-4">
+            <!-- Número -->
+            <div class="form-group col-md-2">
+                <h:outputLabel value="#{msgs.lbl_number}" />
+				<p:inputText id="txtNumero" maxlength="5"
+					value="#{pessoaEditController.enderecoEdit.numero}"
+					styleClass="form-control" />
+            </div>
+            
+        	<!-- Estado -->
+			<div class="form-group col-md-2">
+				<h:outputLabel value="#{msgs.lbl_state}" />
+
+				<p:selectOneMenu id="cmbEstado" maxlength="2"
+					value="#{pessoaEditController.selectedEstado}"
+					styleClass="browser-default form-control"  editable="true"
+					style="padding-right: 0px;">
+					
+					<f:selectItems value="#{pessoaEditController.estadoList}" 
+							var="estado" itemLabel="#{estado.nome}" itemValue="#{estado.nome}" />
+					
+					<p:ajax event="itemSelect"
+						listener="#{pessoaEditController.selectedStateAddressListener()}" update="cmbCidade"/>
+						
+					<p:ajax event="change" listener="#{pessoaEditController.selectedStateAddressListener}" update="cmbCidade"/>
+				</p:selectOneMenu>
+			</div>
+
+			<!-- Cidade -->
+			<div class="form-group col-md-8">
+				<h:outputLabel value="#{msgs.lbl_city}" />
+					
+				<p:selectOneMenu id="cmbCidade" maxlength="100"
+					value="#{pessoaEditController.selectedCidade}"
+					editable="false" styleClass="form-control">
+					
+					<f:selectItems value="#{pessoaEditController.selectedEstado.cidades}" 
+							var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade.nome}" />
+											
+					<p:ajax event="itemSelect"
+						listener="#{pessoaEditController.selectedCityAddressListener()}" />
+						
+					<p:ajax event="change" listener="#{pessoaEditController.selectedCityAddressListener}"/>
+
+					
+				</p:selectOneMenu>
+			</div>
+        </div>
+<!-- Fim Campos do Endereço -->					
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-right">
+					<b:commandButton id="btIncludeEndereco" value="#{msgs.bt_include}"
+						process="divEndereco"
+						styleClass="btn btn-primary btn-sm btn-rounded"
+						actionListener="#{pessoaEditController.insertEndereco()}"
+						update="tblEndereco"/>
+				</div>
+			</div>
+		</div>
+		<br/>
+		
+		<div class="row">
+			<div class="col-12">
+				<p:dataTable id="tblEndereco" var="endereco" value="#{pessoaEditController.selectedEnderecoList}"
+						emptyMessage="#{msgs.msg_no_item_registred}">
+					<p:column headerText="#{msgs.lbl_location}" width="30%" style="text-align: center">
+						<h:outputText value="#{endereco.logradouro}, #{endereco.numero}"/>
+					</p:column>
+					
+					<p:column headerText="#{msgs.lbl_cep}" width="10%" style="text-align: center">
+						<h:outputText value="#{endereco.cep}"/>
+					</p:column>
+					
+					<p:column headerText="#{msgs.lbl_state}" width="10%" style="text-align: center">
+						<h:outputText value="#{endereco.estado}"/>
+					</p:column>
+					
+					<p:column headerText="#{msgs.lbl_city}" width="40%" style="text-align: center">
+						<h:outputText value="#{endereco.cidade}"/>
+					</p:column>
+					
+					
+					
+					
+					<p:column headerText="#{msgs.lbl_actions}" style="width:10%">
+						<div class="row no-gutters">
+							<!-- <div class="col-md-4">
+								Alterar
+								<p:commandLink id="btnEdit" title="#{msgs.tooltip_alter}"
+									styleClass="btn btn-rounded btnPessoaEditClass btn-sm"
+									style="padding: .rem 1rem; margin-left: .700rem"
+									action="#{pessoaEditController.edit}">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									<f:setPropertyActionListener
+										target="#{pessoaSearchController.pessoaSelecionada}" value="#{row}" />
+								</p:commandLink>
+							</div> -->
+
+							<div class="col-md-4">
+								<!-- Excluir -->
+								<p:commandLink id="btnDelete" title="#{msgs.tooltip_delete}"
+									styleClass="btn btn-rounded btnDeleteEnderecoClass btn-sm"
+									style="padding: .rem 1rem; margin-left: .700rem"
+									onclick="$('.modalPseudoClassDelete').modal(); ">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									<f:setPropertyActionListener
+										target="#{pessoaEditController.selectedEndereco}" value="#{row}" />
+								</p:commandLink>
+							</div>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<BR />
+			</div>
+		</div>
+					
+				
+
+		</div>
+	    
+    <!-- ########## DIALOG EXCLUSÃO ############# -->
+	<h:form id="frmDelete">
+		<b:modal id="dlgDelete" title="#{msgs.msg_confirmation_operation}"
+			styleClass="modalPseudoClassDelete">
+			<!--Body-->
+			<div class="modal-body mb-0">
+				#{msgs.msg_delete_endereco}
+				<div class="text-center mt-1-half">
+					<b:commandButton value="#{msgs.bt_cancel}" dismiss="modal"
+						icon-awesome="rotate-left" />
+					<b:commandButton look="success" icon-awesome="check"
+						immediate="true" action="#{pessoaEditController.deleteEndereco()}"
+						update="frmEditPessoa:tblEndereco"
+						ajax="false" value="#{msgs.bt_confirm}"
+						oncomplete="$('.modalPseudoClassDelete').modal('hide');">
+						
+					</b:commandButton>
+				</div>
+			</div>
+		</b:modal>
+	</h:form>
+</ui:composition>	

@@ -19,8 +19,8 @@ public class Text extends ResourceBundle {
     protected static final Control UTF8_CONTROL = new UTF8Control();	
 	
 	public Text() {
-		setParent(ResourceBundle.getBundle("META-INF/ApplicationResources", 
-	            FacesContext.getCurrentInstance().getViewRoot().getLocale(), UTF8_CONTROL));
+		Locale locale = new Locale("pt", "BR");
+		setParent(ResourceBundle.getBundle("META-INF/ApplicationResources", locale, UTF8_CONTROL));
 	}
 
 	@Override

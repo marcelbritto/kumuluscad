@@ -5,7 +5,10 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1"
   metadata-complete="false">
-	<display-name>Site</display-name>
+	<display-name>Kumulus Cadastro</display-name>
+	<welcome-file-list>
+    	<welcome-file>/app/pessoa-search.xhtml</welcome-file>
+	</welcome-file-list>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -25,11 +28,6 @@
 		<param-value>.xhtml</param-value>
 	</context-param>
 
-	<error-page>
-		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-		<location>/pessoa-search.xhtml</location>
-	</error-page>
-
 	<context-param>
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>resources.application</param-value>
@@ -43,12 +41,6 @@
 	<context-param>
 	  <param-name>primefaces.THEME</param-name>
 	  <param-value>bootstrap</param-value>
-	</context-param>
-	
-	<!-- Para resolver o problema do ViewExpiredException -->
-	<context-param>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>client</param-value>
 	</context-param>
 	
 	<context-param>
@@ -79,7 +71,7 @@
 	    <servlet-name>facesServlet</servlet-name>
 	</filter-mapping>
 
-	<security-constraint>
+	<!-- <security-constraint>
          <web-resource-collection>
          <web-resource-name>
              Kumulus Cad
@@ -89,5 +81,5 @@
          <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
          </user-data-constraint>
- </security-constraint>
+ </security-constraint>-->
 </web-app>

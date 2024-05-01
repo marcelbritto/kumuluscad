@@ -13,7 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import br.com.marcelbritto.kumuluscad.util.Utils;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -38,14 +40,21 @@ public class Pessoa extends BaseEntity implements Serializable{
 	@NotNull
 	private String cpf;
 	
+	@Transient
+	private Integer idade;
+	
 	@Temporal(TemporalType.DATE)
-	private Date idade;
+	private Date nascimento;
 	
 	@Size(max = 2)
 	private String sexo;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pessoa", orphanRemoval = true)
 	private Set<Endereco> enderecos;
+	
+	public Integer getIdade() {
+		return Utils.getAge(nascimento);
+	}
 	
 		
 }

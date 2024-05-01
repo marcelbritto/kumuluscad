@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/templates/common.xhtml">
 	<ui:define name="body">
@@ -24,9 +25,9 @@
 					name="ajax-loader.gif" />
 			</p:blockUI>
 
-			<div id="main" class="container">
+			<div id="main" class="container-fluid">
 				<h3 class="page-header"
-					style="margin: 100px 0 20px; border-bottom: 1px solid #cbcaca;">
+					style="margin: 20px 0 20px; border-bottom: 1px solid #cbcaca;">
 					<h:outputText styleClass="titulo"
 						style="font-weight: bold;margin-left:10px" value="#{msgs.lbl_pessoa}" />
 				</h3>
@@ -38,21 +39,22 @@
 					<div class="col-md-12">
 						<div class="col-8">
 							<h:outputLabel value="#{msgs.lbl_pessoa}" />
-							<p:inputText id="txtPessoa"
-								value="#{pessoaPesquisaController.nomePessoa}"
+							<p:inputText id="txtPessoa" label="#{msgs.lbl_pessoa}"
+								value="#{pessoaSearchController.nomePessoa}"
 								styleClass="form-control" />
 
 						</div>
 					</div>
 				</div>
+				<br/>
 
 				<!-- BOTÃO PESQUISAR -->
 				<div class="row" style="vertical-align: middle;">
 					<div class="col-md-12">
 						<div class="pull-right">
 							<p:commandLink id="btnSearch" look="primary"
-								action="#{pessoaPesquisaController.find}" icon="ui-icon-search"
-								value="#{msgs.lbl_research}"
+								action="#{pessoaSearchController.find}" icon="ui-icon-search"
+								value="#{msgs.lbl_search}"
 								oncomplete="document.getElementById('topDiv').scrollIntoView()"
 								styleClass="btnSearch btn btn-info btn-rounded"
 								update="frmSearchPessoa:tblPessoa" />
@@ -68,8 +70,8 @@
 			<div class="row" style="vertical-align: middle;">
 
 				<div class="col-md-12 text-center">
-					<p:dataTable id="tblPessoa" emptyMessage="#{msgs.msg_noItemRegistred}"
-						var="row" value="#{pessoaPesquisaController.pessoas}" rows="10"
+					<p:dataTable id="tblPessoa" emptyMessage="#{msgs.msg_no_item_registred}"
+						var="row" value="#{pessoaSearchController.pessoas}" rows="10"
 						paginator="true" styleClass="tabela tabelaHover"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="10,20,30">
@@ -99,39 +101,57 @@
 								<div class="col-md-4">
 									<!-- Alterar -->
 									<p:commandLink id="btnEdit" title="#{msgs.tooltip_alter}"
-										styleClass="btn blue-gradient btn-rounded btnPessoaEditClass btn-sm"
+										styleClass="btn btn-rounded btnPessoaEditClass btn-sm"
 										style="padding: .rem 1rem; margin-left: .700rem"
-										action="#{pessoaPesquisaController.edit}">
+										action="#{pessoaSearchController.edit}">
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 										<f:setPropertyActionListener
-											target="#{pessoaPesquisaController.pessoaSelecionada}" value="#{row}" />
+											target="#{pessoaSearchController.pessoaSelecionada}" value="#{row}" />
 									</p:commandLink>
 								</div>
 
 								<div class="col-md-4">
 									<!-- Excluir -->
 									<p:commandLink id="btnDelete" title="#{msgs.tooltip_delete}"
-										styleClass="btn blue-gradient btn-rounded btnDeletePessoaClass btn-sm"
+										styleClass="btn btn-rounded btnDeletePessoaClass btn-sm"
 										style="padding: .rem 1rem; margin-left: .700rem"
 										onclick="$('.modalPseudoClassDelete').modal(); ">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 										<f:setPropertyActionListener
-											target="#{pessoaPesquisaController.pessoaSelecionada}" value="#{row}" />
+											target="#{pessoaSearchController.pessoaSelecionada}" value="#{row}" />
 									</p:commandLink>
 								</div>
 							</div>
 						</p:column>
 
 					</p:dataTable>
-
+					<br/>
 				</div>
 			</div>
 			
 		</h:form> </main>
+		<div class="container-fluid">
+			<div class="row" align="center">
+				<div class="col-sm-12">
+					<div>
+						<h:link class="btn btn-default btn-rounded" value="#{msgs.bt_insert}"
+								styleClass="btn btn-primary btn-rounded" 
+								style="padding:.7rem 2rem; text-shadow: white"
+								outcome="pessoa-edit" />
+					</div>
+				</div>
+			</div>
+		</div>
+									
+		<!-- <b:commandButton id="btnInsert" value="#{msgs.bt_insert}" 
+											action="#{gheAssociatedController.includeGHEAssociated()}"
+											update="tblExamGHE cmbExam"
+											styleClass="btn blue-gradient btn-sm btn-rounded"
+											style="border-radius:10rem" /> -->
 
 		<!-- ########## DIALOG EXCLUSÃO ############# -->
 		<h:form id="frmDelete">
-			<b:modal id="dlgDelete" title="#{msgs.msg_confirmationoperation}"
+			<b:modal id="dlgDelete" title="#{msgs.msg_confirmation_operation}"
 				styleClass="modalPseudoClassDelete">
 				<!--Body-->
 				<div class="modal-body mb-0">
@@ -140,10 +160,11 @@
 						<b:commandButton value="#{msgs.bt_cancel}" dismiss="modal"
 							icon-awesome="rotate-left" />
 						<b:commandButton look="success" icon-awesome="check"
-							immediate="true" action="#{pessoaPesquisaController.edit}"
+							immediate="true" action="#{pessoaSearchController.delete()}"
 							update="frmSearchPessoa:tblPessoa"
 							ajax="false" value="#{msgs.bt_confirm}"
 							oncomplete="$('.modalPseudoClassDelete').modal('hide');">
+							
 						</b:commandButton>
 					</div>
 				</div>
@@ -151,17 +172,7 @@
 		</h:form>
 
 		
-		<style>
-
-
-			.fixed-sn main, .hidden-sn main {
-				padding-top: 0rem;
-			}
-			
-			.ui-button-text-only .ui-button-text {
-				padding: 0rem 0rem;
-			}
-	</style>
+		
 	</ui:define>
 
 </ui:composition>

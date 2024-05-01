@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.apache.logging.log4j.Logger;
-import org.jboss.logging.Messages;
 
 import br.com.marcelbritto.kumuluscad.dao.EstadoDAO;
 import br.com.marcelbritto.kumuluscad.exception.BusinessException;

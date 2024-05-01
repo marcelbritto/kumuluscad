@@ -33,6 +33,9 @@
         <servlet-api.version>3.1.0</servlet-api.version>
         <el-api.version>2.2</el-api.version>
         <jsf-impl.version>2.2.10</jsf-impl.version>
+        <omnifaces.version>2.6.4</omnifaces.version>
+        <javaee-api.version>8.0.1</javaee-api.version>
+        <bootsfaces.version>1.4.1</bootsfaces.version>
    </properties>
    
    <dependencies>
@@ -86,14 +89,26 @@
        <dependency>
 		    <groupId>javax</groupId>
 		    <artifactId>javaee-api</artifactId>
-		    <version>8.0.1</version>
+		    <version>${javaee-api.version}</version>
 		    <scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.omnifaces</groupId>
 			<artifactId>omnifaces</artifactId>
-			<version>2.6.4</version>
+			<version>${omnifaces.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.bootsfaces</groupId>
+			<artifactId>bootsfaces</artifactId>
+			<version>${bootsfaces.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>${el-api.version}</version>
 		</dependency>
 		
        <!-- PrimeFaces -->

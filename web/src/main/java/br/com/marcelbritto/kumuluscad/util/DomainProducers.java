@@ -14,8 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Produces;
 
-import org.apache.logging.log4j.Logger;
-
 import br.com.marcelbritto.kumuluscad.model.Cidade;
 import br.com.marcelbritto.kumuluscad.model.Estado;
 import br.com.marcelbritto.kumuluscad.model.Sexo;
@@ -97,11 +95,11 @@ public class DomainProducers implements Serializable {
 	}
 
 	
-	@Produces
-	@Named("datePickerMaxDate")
-	public String produceDatePickerMaxDate() {
-		return DD_MM_YYYY.format(new Date());
-	}
+//	@Produces
+//	@Named("datePickerMaxDate")
+//	public String produceDatePickerMaxDate() {
+//		return DD_MM_YYYY.format(new Date());
+//	}
 
 	
 

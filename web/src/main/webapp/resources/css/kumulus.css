@@ -1,0 +1,187 @@
+html {
+    font-size: 16px;
+}
+
+/* --- MODAL --- */
+.modal-title {
+	float: left;
+}
+
+.modal-header .close {
+	float: right;
+}
+
+.modal-header {
+	background-color: #0277bd !important;
+	color: #ffffff !important;
+	display: block!important;
+}
+
+/*****************************/
+/* Main */		
+.fixed-sn main, .hidden-sn main {
+    padding-top: 1rem;
+}
+
+/* ---  LABEL -- */
+label {
+    margin-bottom: 0px;
+}
+
+/* --- MODAL --- */
+.modal-title {
+	float: left;
+}
+
+.modal-header .close {
+	float: right;
+}
+
+.modal-header {
+	background-color: #0277bd !important;
+	color: #ffffff !important;
+	display: block!important;
+}
+
+
+
+/* --- SelectOneMenu ---*/
+/* Deixando igual ao h:selectOneMenu */
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.5rem center/8px 10px;
+  		background-color: rgba(0, 0, 0, 0);
+  		
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+    width: 25px;
+    border: none;
+	background: transparent;
+	
+}
+
+input.ui-selectonemenu-label.ui-inputfield.ui-corner-all {
+	font-size: 1rem;
+	font-weight: 400;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* --- SelectCheckBoxMenu ---*/
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger .ui-icon{
+	background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.5rem center/8px 10px;
+  		background-color: rgba(0, 0, 0, 0);
+}
+
+.ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger {
+    width: 20px;
+    border: none;
+	background: transparent;
+	
+}
+
+input.ui-selectcheckboxmenu-label.ui-inputfield.ui-corner-all {
+	font-size: 1rem;
+	font-weight: 400;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.ui-selectcheckboxmenu-multiple-container {
+    clear: left;
+    cursor: pointer;
+    list-style-type: none;
+    margin: 0;
+    min-height: 34px;
+    overflow: hidden;
+}
+
+/* --- SelectMultiMenu --- */	
+div > .btn-group {
+  width:100%;
+}
+div > .btn-group > button {
+  width:100%;
+}
+div > .btn-group > ul {
+  width:100%;
+}
+	
+
+      
+      /* -- INPUT -- */
+      /*existem alguns imput fields que tem que levar essa classe, mas não estão adicionadas*/
+      .ui-inputfield, .ui-widget-content .ui-inputfield {
+          padding-left: 10px;
+      }
+  	
+  	
+  	/*----------*/
+  	
+  	
+  	/* --  Radio --- */
+  	[type="radio"]:checked, [type="radio"]:not(:checked) {
+    position: absolute;
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* --- Button --- */
+.btn-rounded {
+    -webkit-border-radius: 10em;
+    border-radius: 10em;
+}
+
+.blue-gradient {
+	  background: -webkit-linear-gradient(50deg, #45cafc, rgb(0, 128, 255)) !important;
+	  background: -o-linear-gradient(50deg, #45cafc, rgb(0, 128, 255)) !important;
+	  background: linear-gradient(40deg, #45cafc, rgb(0, 128, 255)) !important; 
+ 	}
+ 	
+ 	@media (min-width: 600px) {
+   .navbar.scrolling-navbar {
+     -webkit-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+     -o-transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+     transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+     padding-top: 12px;
+     padding-bottom: 12px; }
+     .navbar.scrolling-navbar .navbar-nav > li {
+       -webkit-transition-duration: 1s;
+       -o-transition-duration: 1s;
+       transition-duration: 1s; }
+     .navbar.scrolling-navbar.top-nav-collapse {
+       padding-top: 5px;
+       padding-bottom: 5px; } }
+       
+.submenu-with-itens .ui-menuitem-text{color:black;}
+
+.divMain {
+	width:80%!important;
+	margin-left: auto!important;
+	margin-right: auto!important;	
+	margin-top: 5px!important;
+	margin-bottom: 80px!important;
+	background: #fff!important;
+	-webkit-box-shadow: rgba(200, 200, 200, 0.7) 0 4px 10px -1px;
+	box-shadow: rgba(200, 200, 200, 0.7) 0 4px 10px -1px
+}
+
+.fixed-sn main, .hidden-sn main {
+	padding-top: 0rem;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0rem 0rem;
+}
+
+.ui-button{color:#fff!important; background: #1f89ce!important;}
+
+.tabelaHover tr:hover{
+	background: #d9eafd!important;
+}
+
+.ui-menuitem-link {
+    background-color: transparent!important;
+}
+
+span.ui-menuitem-text:hover{
+	background-color: transparent!important;
+}

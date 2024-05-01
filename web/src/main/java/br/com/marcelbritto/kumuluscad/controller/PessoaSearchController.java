@@ -18,10 +18,10 @@ import br.com.marcelbritto.kumuluscad.model.Pessoa;
 import br.com.marcelbritto.kumuluscad.service.PessoaFacade;
 import lombok.Data;
 
-@ManagedBean(name = "pessoaPesquisaController")
+@ManagedBean(name = "pessoaSearchController")
 @ViewScoped
 @Data
-public class PessoaPesquisaController extends BaseController {
+public class PessoaSearchController extends BaseController {
 	
 	
 	@Inject

@@ -10,7 +10,6 @@
 	<application>
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
-			<supported-locale>en</supported-locale>
 			<supported-locale>pt_BR</supported-locale>
 		</locale-config>
  		<resource-bundle>
@@ -23,7 +22,12 @@
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>pessoa-search</from-outcome>
-			<to-view-id>/pessoa-search.xhtml</to-view-id>
+			<to-view-id>/app/pessoa-search.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>pessoa-edit</from-outcome>
+			<to-view-id>/app/pessoa-edit.xhtml</to-view-id>
 		</navigation-case>
 							
 	</navigation-rule>
