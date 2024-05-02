@@ -1,3 +1,4 @@
+CREATE DATABASE mydatabase;
 DROP TABLE mydatabase.estado;
 
 CREATE TABLE mydatabase.estado (
