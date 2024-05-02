@@ -101,13 +101,46 @@
 
 
         <!-- Test scope dependencies -->
-       <!-- <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+      	<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.10.2</version>
+		    <scope>test</scope>
+		</dependency>
 
-        <dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>5.11.0</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-junit-jupiter</artifactId>
+		    <version>5.11.0</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>net.bytebuddy</groupId>
+		    <artifactId>byte-buddy</artifactId>
+		    <version>1.14.14</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.bytebuddy</groupId>
+		    <artifactId>byte-buddy-agent</artifactId>
+		    <version>1.14.14</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.objenesis</groupId>
+		    <artifactId>objenesis</artifactId>
+		    <version>3.3</version>
+		</dependency>
+
+
+
+       <!-- <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
@@ -117,8 +150,8 @@
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>               
-        </dependency>
--->
+        </dependency>-->
+
     </dependencies>
 
     <build>

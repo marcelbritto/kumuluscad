@@ -56,15 +56,15 @@
 					<f:converter converterId="genericConverter" />
 					
 					<p:ajax event="itemSelect"
-						listener="#{pessoaEditController.selectedStateAddressListener()}" update="cmbCidade"/>
+						listener="#{pessoaEditController.selectedStateListener()}" update="cmbCidade"/>
 						
-					<p:ajax event="change" listener="#{pessoaEditController.selectedStateAddressListener}" update="cmbCidade"/>
+					<p:ajax event="change" listener="#{pessoaEditController.selectedStateListener}" update="cmbCidade"/>
 					<p:ajax update="cmbCidade" />
 				</p:selectOneMenu>
 			</div>
 
 			<!-- Cidade -->
-			<div class="form-group col-md-8">
+			<div class="form-group col-md-6">
 				<h:outputLabel value="#{msgs.lbl_city}" />
 				<br/>	
 				<p:selectOneMenu id="cmbCidade" maxlength="100" autoWidth="false"
@@ -74,12 +74,6 @@
 					<f:selectItems value="#{pessoaEditController.selectedEstado.cidades}" 
 							var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
 					<f:converter converterId="genericConverter" />
-											
-					<p:ajax event="itemSelect"
-						listener="#{pessoaEditController.selectedCityAddressListener()}" />
-						
-					<p:ajax event="change" listener="#{pessoaEditController.selectedCityAddressListener}"/>
-
 					
 				</p:selectOneMenu>
 			</div> 

@@ -65,6 +65,14 @@ public class Pessoa extends BaseEntity implements Serializable{
 	public Integer getIdade() {
 		return Utils.getAge(nascimento);
 	}
+
+	
+	public Pessoa(int id, String nome, String cpf) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+	}
 	
 		
 }

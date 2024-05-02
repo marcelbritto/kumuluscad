@@ -31,16 +31,19 @@ public abstract class BaseController {
 	@Inject
 	protected transient Logger logger;
 	
+	@Inject
+	protected FacesContext context;
+	
 	
 	@ManagedProperty(value = "#{domainProducer}")
 	private DomainProducers domainProducer;
 	
 	
-	public BaseController() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		bundle = context.getApplication().getResourceBundle(context, "msgs");
-		FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("pt", "BR"));
-	}
+//	public BaseController() {
+//		context = FacesContext.getCurrentInstance();
+//		bundle = context.getApplication().getResourceBundle(context, "msgs");
+//		FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("pt", "BR"));
+//	}
 	
 	
 	public DomainProducers getDomainProducer() {

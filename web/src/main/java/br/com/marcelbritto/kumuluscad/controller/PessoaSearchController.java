@@ -2,6 +2,7 @@ package br.com.marcelbritto.kumuluscad.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -35,6 +36,12 @@ public class PessoaSearchController extends BaseController {
 	private List<Pessoa> pessoas;
 	
 	private Pessoa pessoaSelecionada;
+	
+	public PessoaSearchController() {
+		context = FacesContext.getCurrentInstance();
+		bundle = context.getApplication().getResourceBundle(context, "msgs");
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("pt", "BR"));
+	}
 	
 	@PostConstruct
 	public void init() {

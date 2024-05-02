@@ -27,9 +27,6 @@
         <dependent-module archiveName="javassist.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/javassist/javassist/3.23.2-GA/javassist-3.23.2-GA.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="byte-buddy.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/net/bytebuddy/byte-buddy/1.9.11/byte-buddy-1.9.11.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="antlr.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -82,6 +79,12 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="commons-lang3.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="byte-buddy.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/net/bytebuddy/byte-buddy/1.14.14/byte-buddy-1.14.14.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="objenesis.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/objenesis/objenesis/3.3/objenesis-3.3.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
                     

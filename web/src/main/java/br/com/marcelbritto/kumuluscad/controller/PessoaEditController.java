@@ -3,6 +3,8 @@ package br.com.marcelbritto.kumuluscad.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -31,9 +33,6 @@ public class PessoaEditController extends BaseController {
 	private transient Logger logger;
 
 	@Inject
-	private FacesContext context;
-
-	@Inject
 	private PessoaFacade facade;
 
 	@Inject
@@ -48,6 +47,19 @@ public class PessoaEditController extends BaseController {
 	private Estado selectedEstado;
 	private Cidade selectedCidade;
 	private boolean insertMode = false;
+	
+	public PessoaEditController() {
+		context = FacesContext.getCurrentInstance();
+		bundle = context.getApplication().getResourceBundle(context, "msgs");
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("pt", "BR"));
+	}
+	
+	//Para testes
+	public PessoaEditController(FacesContext facesContext, ResourceBundle resourceBundle ) {
+		context = facesContext;
+		bundle = resourceBundle;
+		
+	}
 	
 	@PostConstruct
 	public void init() {
@@ -189,62 +201,16 @@ public class PessoaEditController extends BaseController {
 	 * Preenche Rua, Bairro, Cidade e Estado a partir do CEP.
 	 */
 	public void fillCep() {
-//		final String cep = helper.getPerson().getCep();
-//		Map<String, String> cepMap = ClientCorreioWS.getMapFromCep(cep);
-//
-//		if (cepMap != null && !cepMap.isEmpty()) {
-//			Map<String, City> cityMap = new HashMap<>();
-//			Map<String, State> stateMap = getDomainProducer().stateList().stream()
-//					.collect(Collectors.toMap(State::getInitial, state -> state));
-//
-//			helper.getPerson().setAddress(cepMap.get(ClientCorreioWS.RUA));
-//			helper.getPerson().setNeighborhood(cepMap.get(ClientCorreioWS.BAIRRO));
-//
-//			helper.getPerson().setStateAddress(stateMap.get(cepMap.get(ClientCorreioWS.UF)));
-//			helper.getPerson().setCountryAddress(helper.getPerson().getStateAddress().getCountry());
-//			// ^^ sempre será Brasil, mas optei por fazer assim pra sempre pegar
-//			// o objeto do pais corretamente
-//
-//			helper.getPerson().getStateAddress().getCityList()
-//					.forEach(city -> cityMap.put(city.getName().trim(), city));
-//			// as cidades estão com espaços em branco que atrapalham a comparação ^^
-//
-//			helper.getPerson().setCityAddress(cityMap.get(cepMap.get(ClientCorreioWS.CIDADE)));
-//
-//			if (!cep.contains("-"))
-//				helper.getPerson().setCep(cep.substring(0, 5) + "-" + cep.substring(5, 8));
-//
-//			helper.setSelectedStateAddress(helper.getPerson().getStateAddress().getName());
-//			helper.setSelectedCityAddress(helper.getPerson().getCityAddress().getName());
-//		}
+//TODO
 	}
 	
 	/**
 	 * Usado para a seleção de Estado do endereço.
 	 */
-	public void selectedStateAddressListener() {
+	public void selectedStateListener() {
 		facade.listCidades(selectedEstado);
 	}
+	
 
-	/**
-	 * Usado para a seleção de Cidade do endereço.
-	 */
-	public void selectedCityAddressListener() {
-
-//		if (helper.getPerson().getStateAddress() != null) {
-//			for (City city : helper.getPerson().getStateAddress().getCityList()) {
-//				if (city.getName().equalsIgnoreCase(helper.getSelectedCityAddress())) {
-//					helper.getPerson().setCityAddress(city);
-//					break;
-//				}
-//			}
-//
-//			if (helper.getPerson().getCityAddress() == null) {
-//				City city = new City();
-//				city.setName(helper.getSelectedStateAddress());
-//				helper.getPerson().setCityAddress(city);
-//			}
-//		}
-
-	}
+	
 }
