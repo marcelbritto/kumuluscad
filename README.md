@@ -48,4 +48,22 @@ Como servidor de aplicação utilizei o Wildfly 23.
 - No Winows PowerShell ou CMD, inclua as variáveis de ambiente:
 set POSTGRES_USER=postgres
 set POSTGRES_PASSWORD=**SENHA-DE-SUA-ESCOLHA**
- 
+- Inicialize o banco executando: ..\kumuluscad\docker-compose up
+- Crie um Database chamado **mydatabase**
+- A criação das tabelas pode ser feita alterando o arquivo: C:\Users\marcel.britto\OneDrive - Zarpa\Documentos\04. Consulta\Java\Kumulus\kumuluscad\ejb\src\main\resources\META-INF\persistence.xml
+	<property name="hibernate.hbm2ddl.auto" value="create" />
+- Assim que a aplicação subir pela primeira vez, as tabelas serão criadas.
+	
+#####Subindo a aplicação
+- Copie o ear gerado com mvn clean install -DskipTest para: ..\wildfly-23.0.2.Final\standalone\deployments
+- Inicie o WildFly executando: ..\wildfly-23.0.2.Final\bin\standalone.bat
+- Execute o script no postgres: ..kumuluscad\sql-scripts\02-insert_values.sql
+
+Pronto, a aplicação está pronta para executar: http://localhost:8080/kumuluscad-web
+
+
+
+
+#### Testes
+Só é possível executar os testes unitários do Controller, via Eclipse.
+Não tive tempo para implementar os testes de integração ainda.
