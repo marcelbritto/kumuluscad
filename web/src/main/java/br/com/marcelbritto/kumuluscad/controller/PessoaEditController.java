@@ -1,7 +1,9 @@
 package br.com.marcelbritto.kumuluscad.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,9 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
 
 import br.com.marcelbritto.kumuluscad.model.Cidade;
 import br.com.marcelbritto.kumuluscad.model.Endereco;
@@ -40,7 +40,7 @@ public class PessoaEditController extends BaseController {
 	private EstadoFacade estadoFacade;
 		
 	private Pessoa pessoa;
-	private List<Endereco> selectedEnderecoList;
+	private Set<Endereco> selectedEnderecoList;
 	private Endereco selectedEndereco;
 	private Endereco enderecoEdit;
 	private List<Estado> estadoList;
@@ -57,10 +57,11 @@ public class PessoaEditController extends BaseController {
 		pessoa = (Pessoa) context.getExternalContext().getFlash().get("pessoa");
 		
 		if (pessoa != null) {
-			Hibernate.initialize(pessoa.getEnderecos());
-			insertMode = true;				
+			selectedEnderecoList = facade.listEndereco(pessoa);
+							
 		} else {
 			resetPessoa();
+			insertMode = true;
 		}
 			
 	}
@@ -68,13 +69,12 @@ public class PessoaEditController extends BaseController {
 	
 	public void resetPessoa()  {
 		pessoa = new Pessoa();
-		selectedEnderecoList = new ArrayList<>();
+		selectedEnderecoList = new HashSet<>();
 		enderecoEdit = new Endereco();
 		selectedEndereco = new Endereco();
 		selectedCidade = new Cidade();
 		selectedEstado = new Estado();
 		selectedEstado.setCidades(new ArrayList<>());
-		System.out.println("##################### RESET PESSOA");
 	}
 
 	// Realiza a consulta tanto pelo nome do profissional, quanto pelo o seu CPF caso esteja presente na string.
@@ -98,33 +98,17 @@ public class PessoaEditController extends BaseController {
 
 
 	public void insertEndereco() {
-//		try {
-//			if (selectedCertified != null) {
-//				if (aso.getAsoCertifieds() != null) {
-//					if (!aso.getAsoCertifieds().contains(selectedCertified) && selectedCertified.getName() != null) {
-//						aso.getAsoCertifieds().add(selectedCertified);
-//						selectedCertified = new Certified();
-//					}
-//				} else if (!selectedCertified.getName().isBlank()) {
-//					aso.setAsoCertifieds(new ArrayList<>());
-//					aso.getAsoCertifieds().add(selectedCertified);
-//					selectedCertified = new Certified();
-//				}
-//			}
-//			
-//		} catch (Exception e) {
-//			logger.error(e);
-//		}
+		if (enderecoEdit != null) {
+			enderecoEdit.setCidade(selectedCidade.getNome());
+			enderecoEdit.setEstado(selectedEstado.getInitial());
+			enderecoEdit.setPessoa(pessoa);
+			selectedEnderecoList.add(enderecoEdit);
+			enderecoEdit = new Endereco();
+		}
 	}
 	
 	public void deleteEndereco() {
-//		FacesMessage message = null;
-//		try {
-//			pessoaFacade.delete(pessoaSelecionada);
-//			pessoas.remove(pessoaSelecionada);
-//		} catch (Exception e) {
-//			this.handleException(e, this.bundle.getString("error_delete").replace("{0}", "Pessoa: " + pessoaSelecionada.getNome()), logger);
-//		}
+		selectedEnderecoList.remove(selectedEndereco);
 	}
 
 
@@ -133,7 +117,12 @@ public class PessoaEditController extends BaseController {
 		List<String> errorList = new ArrayList<String>();
 		try {
 			// Validando Campos Obrigatórios.
-			validateRequiredFields(errorList);
+			facade.validateRequiredFields(pessoa, errorList);
+			if (selectedEnderecoList == null || selectedEnderecoList.isEmpty()) {
+				pessoa.setEnderecos(null);
+			} else {
+				pessoa.setEnderecos(selectedEnderecoList);
+			}
 			
 			if (!errorList.isEmpty()) {
 				String errorTitle = bundle.getString("error_validate_required_fields");
@@ -146,8 +135,11 @@ public class PessoaEditController extends BaseController {
 			}
 			if (insertMode) {
 				facade.create(pessoa);
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, this.bundle.getString("msg_insert_success"), "");
+				resetPessoa();
 			} else {
 				facade.update(pessoa);
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, this.bundle.getString("msg_update_success"), "");
 			}
 
 			
@@ -155,24 +147,23 @@ public class PessoaEditController extends BaseController {
 	
 		} catch (Exception e) {
 			if (pessoa.getNome() == null)  {
-				this.handleException(e, this.bundle.getString("erroInclusao").replace("{0}", "Pessoa"), logger);
+				if (insertMode) {
+					this.handleException(e, this.bundle.getString("error_create").replace("{0}", "Pessoa"), logger);
+				} else {
+					this.handleException(e, this.bundle.getString("error_update").replace("{0}", "Pessoa"), logger);
+				}
 			} else {
-				this.handleException(e, this.bundle.getString("erroInclusao").replace("{0}", pessoa.getNome()), logger);
+				if (insertMode) {
+					this.handleException(e, this.bundle.getString("error_create").replace("{0}", "Pessoa: "+ pessoa.getNome()), logger);
+				} else {
+					this.handleException(e, this.bundle.getString("error_update").replace("{0}", "Pessoa: "+ pessoa.getNome()), logger);
+				}
 			}
 			
 		}
 	}
 	
-	private void validateRequiredFields(List<String> errorList) {
-		if (StringUtils.isBlank(pessoa.getNome())) {
-			errorList.add("error_fill_name");
-		}
-		
-		if (StringUtils.isBlank(pessoa.getCpf())) {
-			errorList.add("error_fill_cpf");
-		}
-		
-	}
+	
 	
 	public void checkName() {
 //		List<String> result = null;

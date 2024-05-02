@@ -12,7 +12,6 @@
 
 	<main>
 		<h:form id="frmEditPessoa" styleClass="container-fluid divMain">
-			<h:inputHidden id="pessoa" value="#{pessoaEditController.pessoa}"/>
 			<div id="messagesDiv" />
 			
 			<p:blockUI widgetVar="buiPessoaEdit" block="frmEditPessoa" trigger="btnSavePessoa ">
@@ -36,12 +35,6 @@
 					            <div class="col-6">
 					              <div class="form-group">
 					                <h:outputLabel value="#{msgs.lbl_full_name}*" for="txtName"/>
-					                <!-- <p:inputText id="txtName" maxlength="150" size="150" 
-										value="#{pessoaEditController.pessoa.nome}"
-										onblur="rc()"	ajax="true" styleClass="form-control">
-										<p:remoteCommand name="rc" update="messageName" partialSubmit="true"
-											actionListener="#{pessoaEditController.checkName}" />
-									</p:inputText> -->
 									<p:inputText id="txtName" maxlength="150" size="150" 
 										value="#{pessoaEditController.pessoa.nome}" styleClass="form-control"/>
 										
@@ -59,12 +52,6 @@
 		              	  <b:messages id="messageCpf" for="txtCpf" autoUpdate="false" closable="true" />	
 			              <div class="form-group">
 			                <h:outputLabel value="#{msgs.lbl_cpf}*" for="txtCpf"/>
-			                <!-- <p:inputText id="txtCpf" maxlength="11" 
-								value="#{pessoaEditController.pessoa.cpf}"
-								onblur="rc2()"	ajax="true" styleClass="form-control">
-								<p:remoteCommand name="rc2" update="messageCpf" partialSubmit="true"
-									actionListener="#{pessoaEditController.checkName}" />TODO
-							</p:inputText> -->
 							<p:inputText id="txtCpf" maxlength="11" 
 								value="#{pessoaEditController.pessoa.cpf}"
 								styleClass="form-control"/>
@@ -82,7 +69,7 @@
 			                		value="#{pessoaEditController.pessoa.nascimento}" 
 									format="DD/MM/YYYY"	locale="pt"
 									maxdate="today"/>
-				
+									
 			              </div>
 			          </div>
 			          
@@ -126,6 +113,7 @@
 								oncomplete="document.getElementById('messagesDiv').scrollIntoView()"
 								styleClass="btn btn-primary btn-rounded"
 								style="padding:.6rem .2rem" 
+								process="frmEditPessoa"
 								actionListener="#{pessoaEditController.save}" 
 								update="msgsGlobal frmEditPessoa"/>
 					

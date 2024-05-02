@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
+            
+    
     <wb-module deploy-name="kumuluscad-ear">
+                
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+                
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
         <dependent-module archiveName="kumuluscad-web.war" deploy-path="/" handle="module:/resource/kumuluscad-web/kumuluscad-web">
             <dependency-type>uses</dependency-type>
@@ -78,7 +81,12 @@
         <dependent-module archiveName="log4j-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/logging/log4j/log4j-api/2.18.0/log4j-api-2.18.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-            
-    </wb-module>
+        <dependent-module archiveName="commons-lang3.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                    
     
+    </wb-module>
+        
+
 </project-modules>

@@ -77,12 +77,12 @@
 						rowsPerPageTemplate="10,20,30">
 
 						<p:column headerText="#{msgs.lbl_name}"
-							sortBy="#{row.nome}" style="width:10%">
+							sortBy="#{row.nome}" style="width:50%">
 							<h:outputText value="#{row.nome}" />
 						</p:column>
 
 						<p:column headerText="#{msgs.lbl_cpf}"
-							sortBy="#{row.cpf}" style="width:10%">
+							sortBy="#{row.cpf}" style="width:15%">
 							<h:outputText value="#{row.cpf}" />
 						</p:column>
 
@@ -96,9 +96,9 @@
 							<h:outputText value="#{row.sexo}" />
 						</p:column>
 
-						<p:column headerText="#{msgs.lbl_actions}" style="width:15%">
-							<div class="row no-gutters">
-								<div class="col-md-4">
+						<p:column headerText="#{msgs.lbl_actions}" style="width:10%">
+							<div class="row no-gutters" align="center">
+								<div class="col-sm-6">
 									<!-- Alterar -->
 									<p:commandLink id="btnEdit" title="#{msgs.tooltip_alter}"
 										styleClass="btn btn-rounded btnPessoaEditClass btn-sm"
@@ -110,7 +110,7 @@
 									</p:commandLink>
 								</div>
 
-								<div class="col-md-4">
+								<div class="col-sm-6">
 									<!-- Excluir -->
 									<p:commandLink id="btnDelete" title="#{msgs.tooltip_delete}"
 										styleClass="btn btn-rounded btnDeletePessoaClass btn-sm"

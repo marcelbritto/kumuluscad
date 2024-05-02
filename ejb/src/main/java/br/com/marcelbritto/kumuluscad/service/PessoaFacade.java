@@ -1,15 +1,18 @@
 package br.com.marcelbritto.kumuluscad.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 
 import br.com.marcelbritto.kumuluscad.dao.PessoaDAO;
 import br.com.marcelbritto.kumuluscad.model.Cidade;
+import br.com.marcelbritto.kumuluscad.model.Endereco;
 import br.com.marcelbritto.kumuluscad.model.Estado;
 import br.com.marcelbritto.kumuluscad.model.Pessoa;
 
@@ -58,5 +61,20 @@ public class PessoaFacade {
 		return estado.getCidades();
 	}
 	
+	public Set<Endereco> listEndereco(Pessoa pessoa) {
+		Hibernate.initialize(pessoa.getEnderecos());
+		return pessoa.getEnderecos();
+	}
+	
+	public void validateRequiredFields(Pessoa pessoa, List<String> errorList) {
+		if (StringUtils.isBlank(pessoa.getNome())) {
+			errorList.add("error_fill_name");
+		}
+		
+		if (StringUtils.isBlank(pessoa.getCpf())) {
+			errorList.add("error_fill_cpf");
+		}
+		
+	}
 	
 }

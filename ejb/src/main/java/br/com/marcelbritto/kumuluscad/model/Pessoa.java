@@ -15,12 +15,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import br.com.marcelbritto.kumuluscad.util.Utils;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "pessoa")
@@ -54,33 +58,13 @@ public class Pessoa extends BaseEntity implements Serializable{
 	private String sexo;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pessoa", orphanRemoval = true)
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	private Set<Endereco> enderecos;
 	
 	public Integer getIdade() {
 		return Utils.getAge(nascimento);
 	}
 	
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (!(object instanceof Pessoa)) {
-			return false;
-		}
-		Pessoa other = (Pessoa) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Pessoa[ id=" + id + " ]";
-	}	
+		
 }
